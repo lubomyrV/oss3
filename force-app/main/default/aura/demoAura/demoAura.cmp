@@ -1,0 +1,24 @@
+<!-- demoAura.cmp -->
+<aura:component controller="DemoAuraController" implements="force:lightningQuickAction">
+
+    <aura:attribute name="prom1" type="String" default=""/>
+    <aura:attribute name="prom2" type="String" default=""/>
+    <aura:attribute name="prom3" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    
+    <aura:attribute name="messageFromChildEvent" type="String"/>
+   	<aura:handler name="customeEvent" event="c:AuraEvent" action="{!c.handleCE}"/>
+ 
+   	<c:demoAuraSecond/>
+    
+   	<p>Message from child event is {!v.messageFromChildEvent}</p>
+    <lightning:card>
+        Testing promises for aura:<br/>
+        {!v.prom1}<br/>
+        {!v.prom2}<br/>
+        {!v.prom3}<br/>
+    </lightning:card>
+
+</aura:component>

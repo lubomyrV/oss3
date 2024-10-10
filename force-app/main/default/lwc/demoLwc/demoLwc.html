@@ -1,0 +1,67 @@
+<template>
+    <div>
+        <p>LWC Hello World</p>
+        <p>accountId is {accountId}</p>
+    </div>
+
+    <lightning-card>
+        <div onkeyup={handleKeyUp}>
+            <lightning-input name="enter-search" label="Custom Search" type="search" placeholder="Search..." is-loading></lightning-input>
+        </div>
+        <p if:true={queryTerm}>
+            Searched for: {queryTerm}
+        </p>
+    </lightning-card>
+
+    <lightning-card>
+        <h3 slot="title">Callout from LWC:</h3>
+        <div slot="footer"> 
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-button label="Get a joke" onclick={getJoke}></lightning-button>
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-textarea readonly value={receivedMessage} rows="7" style="height:150px;"></lightning-textarea>
+        </div>   
+    </lightning-card>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    </p>
+
+    <lightning-card>
+        <h3 slot="title">Datatable</h3>
+        <div slot="footer"> 
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-button label="Get Contacts" onclick={getContacts} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button label="Save Custom" onclick={handleSaveCustom}></lightning-button>
+        </div>
+        <div class="slds-p-around_medium lgc-bg">
+            <div data-id="table-1">
+                <lightning-datatable
+                        key-field="Id"
+                        data={contacts}
+                        show-row-number-column
+                        onsave={handleSave}
+                        columns={columns}
+                        draft-values={draftValues}>
+                </lightning-datatable>
+            </div>
+        </div>   
+    </lightning-card>
+
+    <p>
+        Tellus orci ac auctor augue mauris. Tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce. 
+    </p>
+
+    <lightning-button label="Get error" onclick={getErrorTest}></lightning-button>
+
+    <lightning-button label="Show Loading" onclick={handleShowLoading}></lightning-button>
+    <template if:true={isLoading}>
+        <div class="spinner">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+</template>

@@ -1,0 +1,30 @@
+<!-- LogDecryptData.cmp -->
+<aura:component controller="LogDecryptDataController" implements="force:lightningQuickAction,force:hasRecordId" >
+	<aura:attribute name="recordId" type="String" />
+    <aura:attribute name="recordData" type="String" />
+    <aura:attribute name="hasEncryption" type="Boolean" />
+    <aura:attribute name="hasPermission" type="Boolean" />
+    <aura:attribute name="hasData" type="Boolean" />
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:card  title="">
+        <div>
+            <aura:renderIf isTrue="{! not(v.isLoading)}">
+                <lightning:button variant="brand" label="Data Verification" title="Verification" disabled="{! not(v.hasData) }" onclick="{! c.handleVerification }" />
+                <aura:renderIf isTrue="{!v.hasEncryption}">
+                    <lightning:button variant="brand" label="Decrypt" title="Decrypt" disabled="{! not(v.hasPermission) }" onclick="{! c.handleDecryptData }" />
+                    <aura:renderIf isTrue="{!not(empty(v.recordData))}">
+                        <lightning:textarea name="recordData" readonly="true" value="{! v.recordData }" label="Data" />
+                    </aura:renderIf>
+                </aura:renderIf>
+            </aura:renderIf>
+        </div>
+        <aura:renderIf isTrue="{!v.isLoading}">
+            <div class="exampleHolder">
+                <lightning:spinner alternativeText="Loading" size="small" />
+            </div>
+        </aura:renderIf>
+    </lightning:card>
+
+</aura:component>

@@ -1,0 +1,9 @@
+<!--demoAuraSecond.cmp-->
+<aura:component >
+    <aura:registerEvent name="customeEvent" type="c:AuraEvent"/>
+ 
+   <h1>Component Event Example</h1>
+   <p>
+       <lightning:button label="Fire Event" onclick="{!c.fireNow}" />
+   </p>
+</aura:component>

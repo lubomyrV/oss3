@@ -1,0 +1,47 @@
+<template> 
+
+    <lightning-card  title="File Manager">
+        <div slot="actions">
+            <lightning-file-upload 
+                    label="Upload Files" 
+                    name="fileUploader" 
+                    accept={acceptedFormats} 
+                    record-id={recordId} 
+                    onuploadfinished={handleUploadFinished} 
+                    multiple> 
+            </lightning-file-upload>
+            <lightning-helptext content={acceptedFormatsHelptext}></lightning-helptext>
+            <div class="slds-p-around_medium">
+            </div>
+        </div>
+        <template if:false={isLoading}>
+            <div style="height: 120px;">
+                <lightning-datatable
+                        key-field="id"
+                        data={data}
+                        columns={columns}
+                        sorted-by={sortBy} 
+                        sorted-direction={sortDirection} 
+                        onsort={handleSort} 
+                        onrowselection={getSelected}
+                    >
+                </lightning-datatable>
+            </div>
+        </template>
+        <template if:true={isLoading}>
+            <div class="spinner">
+                <lightning-spinner alternative-text="Loading..." variant="brand" size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <div slot="footer">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <lightning-button variant="brand" label="Seal Selected" onclick={handleSealSelected} disabled={iButtonDisabled} slot="actions"></lightning-button>
+                </div>
+                <div class="slds-col">
+                    <lightning-button label="Check Selected" onclick={handleCheckSelected} disabled={iButtonDisabled} slot="actions"></lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

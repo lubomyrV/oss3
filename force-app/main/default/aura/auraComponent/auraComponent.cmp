@@ -1,0 +1,28 @@
+<!-- auraComponent.cmp -->
+<aura:component implements="force:lightningQuickAction,force:hasRecordId" >
+	<aura:attribute name="dataReceived" type="String"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+            width: 80% !important;
+            max-width: 80% !important;
+        }
+    </aura:html>
+
+	<aura:attribute name="recordId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:card  title="">
+        <div>
+            <p>Aura (main component)</p>
+            <p>Record ID is {! v.recordId}</p>
+            <p>Data from LWC is {!v.dataReceived}</p>
+        </div>
+        <br/>
+        <div>
+            <c:demoLwc onsenddata="{!c.receiveLWCData}" accountId="{! v.recordId}" />
+        </div>
+
+    </lightning:card>
+    
+</aura:component>
