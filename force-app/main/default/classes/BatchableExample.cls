@@ -1,5 +1,5 @@
-public with sharing class BatchableExample implements Database.Batchable<sObject>, Database.AllowsCallouts, Database.RaisesPlatformEvents{
-    // System.attachFinalizer(Finalizer) is not allowed in this context
+public with sharing class BatchableExample implements Database.Batchable<sObject>, Database.AllowsCallouts, Database.RaisesPlatformEvents {
+    // System.attachFinalizer(Finalizer) is not allowed in this context!
     public BatchableExample() {
 
     }
@@ -19,8 +19,6 @@ public with sharing class BatchableExample implements Database.Batchable<sObject
                 Contact contact = contactById.get(AccountId);
                 System.debug('Contact: ' + contact);
             }
-            // while(Limits.getCpuTime() < 12000) {// wait for 12 sec
-            // }
         }
         // for (Integer i = 0; i < 201; i++) {
         //     List<SObject> res = [SELECT Id FROM Account];
