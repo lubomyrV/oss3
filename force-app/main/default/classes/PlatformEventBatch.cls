@@ -4,10 +4,9 @@ public class PlatformEventBatch implements Database.Batchable<sObject>, Database
     }
 
     public void execute(Database.BatchableContext BC, List<SObject> scope){
-        throw new myException('throwing this exception');
+        throw new LimitException('throwing this exception');
     }
     
     public void finish(Database.BatchableContext BC){}
     
-    public class myException extends Exception {}
 }

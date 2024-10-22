@@ -1,5 +1,5 @@
 public with sharing class AccountDomain extends SObjectDomain {
-
+    
     public List<Account> updatePhones(List<Account> accounts){
         for(Account account : accounts){
             if (account.Phone == '444') {

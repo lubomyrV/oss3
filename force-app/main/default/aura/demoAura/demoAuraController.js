@@ -15,6 +15,7 @@
                 component.set("v.prom2", response2);
                 let action3 = component.get("c.serverEchoThree");
                 return helper.apexCall(action3);
+                //helper.apexCall(action3);
             }
         ).then(
             response3 => {

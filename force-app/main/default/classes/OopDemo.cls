@@ -13,6 +13,17 @@ public with sharing class OopDemo {
         }
     }
 
+    public class PrimaryCompany extends VCompany {
+        public PrimaryCompany(String companyName) {
+            super(companyName);
+        }
+
+        public override String getCompanyName() {
+            System.debug('From PrimaryCompany '+companyName);
+            return companyName;
+        }
+    }
+
     public class SecondaryCompany extends VCompany {
         public SecondaryCompany(String companyName) {
             super(companyName);
@@ -66,13 +77,17 @@ public with sharing class OopDemo {
 
     public void run() {
         VCompany vc1 = new VCompany('companyName1');
-        System.debug('Virtual class VCompany ' + vc1);
+        System.debug('Virtual class VCompany ' + vc1.getCompanyName());
 
         VCompany sc2 = new SecondaryCompany('companyName2');
-        System.debug('SecondaryCompany extends VCompany ' + sc2);
+        System.debug('SecondaryCompany extends VCompany ' + sc2.getCompanyName());
 
-        SecondaryCompany sc3 = new SecondaryCompany('companyName3');
-        System.debug('SecondaryCompany extends VCompany ' + sc3);
+        VCompany pc1 = new PrimaryCompany('companyName4');
+        System.debug('PrimaryCompany extends VCompany ' + pc1.getCompanyName());
+
+        SecondaryCompany sc3 = new SecondaryCompany('companyName5');
+        System.debug('SecondaryCompany extends VCompany ' + sc3.getCompanyName());
+        
 
 
         // Error: Abstract classes cannot be constructed

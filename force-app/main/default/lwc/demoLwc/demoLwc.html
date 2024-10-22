@@ -64,4 +64,10 @@
         </div>
     </template>
 
+    <c-child-component></c-child-component>
+    <template lwc:if={error}>
+        <p>error message: {error}</p>
+        <p>stack: {stack}</p>
+    </template>
+
 </template>

@@ -3,6 +3,9 @@ import { LightningElement, api, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getContactList from '@salesforce/apex/DemoLwcController.getContactList';
+import getAllContacts from '@salesforce/apex/DemoLwcController.getAllContacts';
+import getAllContactsJSON from '@salesforce/apex/DemoLwcController.getAllContactsJSON';
+
 import getContactInfo from '@salesforce/apex/DemoLwcController.getContactInfo';
 import getError from '@salesforce/apex/DemoLwcController.getError';
 
@@ -26,12 +29,18 @@ export default class DemoLwc extends LightningElement {
     
     isLoading = false;
 
+    queryTerm;
+
+    error;
+    stack;
+
     connectedCallback() {
         // init method
-        console.log('init lwc');
+        console.log("connectedCallback");
     }
 
     renderedCallback() {
+        console.log("renderedCallback");
         // after a component has finished the rendering phase
         if(this.hasRendered == false) {
             this.getJoke();
@@ -39,7 +48,12 @@ export default class DemoLwc extends LightningElement {
         }
     }
 
-    queryTerm;
+    errorCallback(error, stack) {
+        console.log("errorCallback");
+        this.error = error;
+        this.stack = stack;
+    }
+
     
     handleKeyUp(evt) {
         this.queryTerm = evt.target.value;
@@ -116,7 +130,7 @@ export default class DemoLwc extends LightningElement {
             return getContactInfo({ contactId: result });
         })
         .then(result => {
-            console.log('getContactInfo result: ',JSON.stringify(result));
+            console.log('getContactInfo result: ', result);
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success!',
@@ -124,6 +138,26 @@ export default class DemoLwc extends LightningElement {
                     variant: 'success'
                 })
             );
+            return result;
+        })
+        .then(result => {
+            console.time('getAllContacts');
+            return getAllContacts();
+        })
+        .then(allContacts => {
+            console.timeEnd('getAllContacts');
+            console.log('allContacts', allContacts.length);
+            return allContacts;
+        })
+        .then(result => {
+            console.time('getAllContactsJSON');
+            return getAllContactsJSON();
+        })
+        .then(allContactsJSON => {
+            let allContacts = JSON.parse(allContactsJSON);
+            console.timeEnd('getAllContactsJSON');
+            console.log('allContactsJSON', allContacts.length);
+            return allContactsJSON;
         })
         .catch(error => {
             console.error(JSON.stringify(error));

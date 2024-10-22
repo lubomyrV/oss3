@@ -1,4 +1,4 @@
-public abstract inherited sharing class SObjectSelector {
+public abstract inherited sharing class SObjectSelector implements ISelector {
     abstract Schema.SObjectType getSObjectType();
     abstract List<Schema.SObjectField> getSObjectFieldList();
     public QueryBuilder getQueryBuilder() {
@@ -14,8 +14,8 @@ public abstract inherited sharing class SObjectSelector {
             this.sobjectType = sobjectType;
         }
         private Schema.SObjectType sobjectType;
-        private String condition;
-        private Set<String> fieldSet = new Set<String>();
+        private String condition = '';
+        private Set<String> fieldSet = new Set<String>{'Id'};
         private List<Schema.SObjectField> sobjectFields = new List<Schema.SObjectField>();
     
         public QueryBuilder addField(String sobjectField) {
@@ -44,7 +44,6 @@ public abstract inherited sharing class SObjectSelector {
             }
             String fields = String.join(fieldSet, ', ').removeEnd(', ');
             String query = 'SELECT ' + fields + ' FROM ' + this.sobjectType.toString() + ' ' + this.condition;
-            System.debug(query);
             return query;
         }
     }
