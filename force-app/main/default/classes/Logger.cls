@@ -110,6 +110,28 @@ public without sharing class Logger {
 	}
 
     /**
+     * @description creates a new Log__c record for Log_Event__e
+     * @param  evt Log_Event__e
+     * @return this Logger object
+     */
+    public Logger log(Log_Event__e evt) {
+        Log__c log = new Log__c();
+        if (this.sourceType != null) {
+            log.Class__c = this.sourceType.getName();
+        }
+        log.Type__c = evt.Type__c;
+        log.Message__c = evt.Message__c;
+        log.StackTrace__c = evt.StackTrace__c;
+        Map<String, Object> data = new Map<String, Object>{
+            'ReplayId' => evt.ReplayId,
+            'EventUuid' => evt.EventUuid
+        };
+        log.Description__c = JSON.serialize(data);
+        this.logs.add(log);
+        return this;
+	}
+
+    /**
     * @description wrapper class for handling DmlException object
     * @param dmlExp a DmlException object 
     * @return getDmlExceptions list of the DmlExceptionObject wrapper
